@@ -1,0 +1,32 @@
+{
+  "name": "mongo-scraper",
+  "version": "1.0.0",
+  "description": "App design to scrape articles and save them in Mongo database",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raphatapi/mongo-scraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raphatapi/mongo-scraper/issues"
+  },
+  "homepage": "https://github.com/raphatapi/mongo-scraper#readme",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.11",
+    "handlebars-loop": "^1.0.3",
+    "mongojs": "^2.4.1",
+    "mongoose": "^5.0.3",
+    "morgan": "^1.9.0",
+    "request": "^2.83.0"
+  }
+}
