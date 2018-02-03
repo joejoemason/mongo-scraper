@@ -37,8 +37,6 @@ hbs.registerHelper('each_upto', function(ary, max, options) {
   return result.join('');
 });
 
-
-
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 var PORT = process.env.PORT || 3000;
@@ -52,7 +50,8 @@ mongoose.connect(MONGODB_URI);
 app.get("/scrape", function(req, res) {
   mongoose.connection.db.dropCollection('articles', function(err, result){
 		console.log('articles cleared...');
-	});
+  });
+
   // First, we grab the body of the html with request
   axios.get("https://www.nytimes.com/section/science").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -68,7 +67,8 @@ app.get("/scrape", function(req, res) {
       result.title = title.trim();
       result.summary = $(this).find("p.summary").text();
       result.image = $(this).find("a").find("img").attr("src");
-      
+      result.saved = false;
+
       // Create a new Article using the `result` object built from scraping
       db.Article
         .create(result)
@@ -81,18 +81,15 @@ app.get("/scrape", function(req, res) {
           res.json(err);
         });
     });
-    
+    res.redirect("/");
   });
-  // res.redirect('/');
-  // document.location.href="/";
-  // res.render("index", {});
 });
 
-// Route for getting all Articles from the db
+// Route for getting all saved Articles from the db
 app.get("/", function(req, res) {
-  // Grab every document in the Articles collection
+  // Grab every document that's saved in the Articles collection
   db.Article
-    .find({})
+    .find({saved: false})
     .then(function(dbArticle) {
       var hbsObject = {
         articles: dbArticle
@@ -106,13 +103,25 @@ app.get("/", function(req, res) {
     });
 });
 
+app.get("/saved", function(req, res) {
+  // Grab every document in the Articles collection
+  db.Article
+    .find({saved: true})
+    .then(function(dbArticle) {
+      res.json(dbArticles);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
 // Route for grabbing a specific Article by id, populate it with it's note
-app.get("/articles/:id", function(req, res) {
+app.get("/saved/:id", function(req, res) {
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
   db.Article
-    .findOne({ _id: req.params.id })
+    .update({ _id: req.params.id }, { $set: {saved: true}})
     // ..and populate all of the notes associated with it
-    .populate("note")
     .then(function(dbArticle) {
       // If we were able to successfully find an Article with the given id, send it back to the client
       res.json(dbArticle);
