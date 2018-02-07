@@ -41,7 +41,9 @@ hbs.registerHelper('each_upto', function(ary, max, options) {
 var PORT = process.env.PORT || 3000;
 mongoose.Promise = Promise;
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoScraper";
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, {
+  useMongoClient: true
+});
 
 // Routes
 
@@ -132,7 +134,46 @@ app.get("/saved", function(req, res) {
 });
 
 
+//get route to retrieve all notes for a particlular article
+app.get('/getNotes/:id', function (req,res){
+  db.Article
+    .findOne({_id: req.params.id})
+    .populate('note')
+    .then(results => res.json(results))
+    .catch(err => res.json(err));
+});
 
+//get route to return a single note to view it
+app.get('/getSingleNote/:id', function (req,res) {
+  db.Note
+  .findOne({_id: req.params.id})
+  .then( result => res.json(result))
+  .catch(err => res.json(err));
+});
+
+//post route to create a new note in the database
+app.post('/createNote/:id', function (req,res){
+  db.Note
+    .create(req.body)
+    .then(function(dbNote){
+      return db.Article.findOneAndUpdate( {_id: req.params.id }, { note: dbNote._id }, { new:true });//saving reference to note in corresponding article
+    })
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
+//post route to delete a note
+app.post('/deleteNote', (req,res)=>{
+  let {articleId, noteId} = req.body
+  db.Note
+    .remove({_id: noteId})
+    .then(result => res.json(result))
+    .catch(err => res.json(err));
+});
 
 // Start the server
 app.listen(PORT, function() {
