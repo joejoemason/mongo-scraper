@@ -1,6 +1,14 @@
-<button class="btn btn-default scrape">SCRAPE!</button><button class="btn btn-warning saved">SAVED</button>
-
-<h1>Science News</h1>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Science News</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right top-buttons">
+        <li><button class="btn btn-default scrape">SCRAPE!</button></li>
+        <li><button class="btn btn-warning saved">SAVED</button></li>
+    </ul>
+  </div>
+</nav>
 
 <div class="articles">
     {{#each_upto articles 8}}
