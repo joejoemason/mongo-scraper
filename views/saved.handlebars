@@ -1,0 +1,18 @@
+<button class="btn btn-default home">HOME</button>
+
+<h1>Saved Articles - Science News</h1>
+
+<div class="articles">
+    {{#each articles}}
+        {{#if saved}}
+        <div class="article">
+            <img src="{{image}}" style="height:100px;">
+            <a href="{{link}}"><h2>{{title}}</h2></a>
+            <p>{{summary}}</p>
+            <button class="btn btn-primary unsave" data-id="{{_id}}">UNSAVE</button>
+            <button class="btn btn-primary checknotes" data-id="{{_id}}">NOTE</button>
+            <br>
+        </div>
+        {{/if}}
+    {{/each}}
+</div>
