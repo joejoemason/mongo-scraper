@@ -4,13 +4,14 @@
       <a class="navbar-brand" href="#">Science News</a>
     </div>
     <ul class="nav navbar-nav navbar-right top-buttons">
-        <li><button class="btn btn-default scrape">SCRAPE!</button></li>
-        <li><button class="btn btn-warning saved">SAVED</button></li>
+        <li><button class="btn btn-warning scrape">Scrape Articles!</button></li>
+        <li><button class="btn btn-warning saved">Saved Articles</button></li>
     </ul>
   </div>
 </nav>
 
 <div class="articles">
+    <div class="load"></div>
     {{#each_upto articles 8}}
         {{#unless saved}}
         <div class="article">

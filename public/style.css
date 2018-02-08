@@ -33,6 +33,15 @@ body {
   font-weight: bold;
 }
 
+.load {
+  display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+
 /*MODAL*/
 .modal-content {
     background-color: orange;

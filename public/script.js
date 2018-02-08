@@ -1,7 +1,7 @@
 
 //Click to scrape
 $(document).on("click", ".scrape", function(){
-    $(".articles").html("<img id='wait' src='./img/loading.gif'>");
+    $(".load").html("<img id='wait' src='./img/loading.gif'>");
     $.get( "/scrape", function (req, res) {
         console.log(res);
     }).then(function(data) {
