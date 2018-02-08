@@ -53,35 +53,19 @@ $(document).on("click", ".unsave", function(e){
 
 //function to post a note to server
 function sendNote(element) {
-    let note = {};
-    note.articleId = $(element).attr('data-id'),
-    note.title = $('#noteTitleEntry').val().trim();
-    note.body = $('#noteBodyEntry').val().trim();
-    if (note.title && note.body){
-      $.ajax({
-        url: '/createNote',
-        type: 'POST',
-        data: note,
-        success: function (response){
-          showNote(response, note.articleId);
-          $('#noteBodyEntry, #noteTitleEntry').val('');
-        },
-        error: function (error) {
-          console.log(error);
-        }
-      });
-    }
+    
   }//end of sendNote function
 
 //function to display notes in notemodal
 function showNote(element, articleId){
-    let $title = $('<p>')
-      .text(element.title)
+    // console.log(element);
+    var $title = $('<p>')
+      .text(element)
       .addClass('noteTitle')
-    let $deleteButton = $('<button>')
+    var $deleteButton = $('<button>')
       .text('X')
       .addClass('deleteNote');
-    let $note = $('<div>')
+    var $note = $('<div>')
       .append($deleteButton, $title)
       .attr('data-note-id', element._id)
       .attr('data-article-id', articleId)
@@ -91,7 +75,7 @@ function showNote(element, articleId){
 
 //click event to open note modal and populate with notes
 $(document).on('click', '.addNote', function (e){
-    $('#noteArea').empty();
+    // $('#noteArea').empty();
     $('#noteTitleEntry, #noteBodyEntry').val('');
     var id = $(this).attr("data-id");
     $('#submitNote, #noteBodyEntry').attr('data-id', id)
@@ -100,6 +84,7 @@ $(document).on('click', '.addNote', function (e){
       type: 'GET',
       success: function (data){
         $.each(data.notes, function (i, item){
+            console.log(item);
           showNote(item, id)
         });
         $('#noteModal').modal('show');
@@ -113,7 +98,25 @@ $(document).on('click', '.addNote', function (e){
   //click event to create a note
   $(document).on('click', '#submitNote', function (e) {
     e.preventDefault();
-    sendNote($(this));
+    var note = {};
+    note.articleId = $(this).attr('data-id'),
+    note.title = $('#noteTitleEntry').val().trim();
+    note.body = $('#noteBodyEntry').val().trim();
+    if (note.title && note.body){
+      $.ajax({
+        url: '/createNote/'+note.articleId,
+        type: 'POST',
+        data: note,
+        success: function (response){
+            console.log(response);
+          showNote(note.body, note.articleId);
+          $('#noteBodyEntry, #noteTitleEntry').val('');
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
   });//end of #submitNote click event
 
   //keypress event to allow user to submit note with enter key

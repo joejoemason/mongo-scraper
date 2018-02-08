@@ -41,9 +41,7 @@ hbs.registerHelper('each_upto', function(ary, max, options) {
 var PORT = process.env.PORT || 3000;
 mongoose.Promise = Promise;
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoScraper";
-mongoose.connect(MONGODB_URI, {
-  useMongoClient: true
-});
+mongoose.connect(MONGODB_URI);
 
 // Routes
 
