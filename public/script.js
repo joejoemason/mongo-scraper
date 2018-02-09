@@ -52,29 +52,34 @@ $(document).on("click", ".unsave", function(e){
 
 //click event to open note modal and populate with notes
 $(document).on('click', '.addNote', function (e){
-  // $("#notes").empty();
+  $("#notes").empty();
     var thisId = $(this).attr("data-id");
     $.ajax({
       method: "GET",
       url: "/getNotes/" + thisId
     }).then(function(data){
         console.log(data);
-        // The title of the article
-        $("#notes").append("<h2>" + data.title + "</h2>");
-        // Add area to display the notes
-        $("#notes").append("<p id='notes'>" + data.note.title + "</p>");
-        // An input to enter a new title
-        $("#notes").append("<input id='titleinput' name='title' >");
-        // A textarea to add a new note body
-        $("#notes").append("<input id='bodyinput' name='body'></input>");
-        // A button to submit a new note, with the id of the article saved to it
-        $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        
+          // The title of the article
+          $("#notes").append("<h2>" + data.title + "</h2>");
+          // Add area to display the notes
+          $("#notes").append("<p id='notesbody'></p>");
+          // An input to enter a new title
+          $("#notes").append("<input id='titleinput' name='title'>");
+          // A textarea to add a new note body
+          $("#notes").append("<input id='bodyinput' name='body'>");
+          // A button to submit a new note, with the id of the article saved to it
+          $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 
-          //Empty input areas
-          $("#titleinput").val("");
-          $("#bodyinput").val("");
+          // If there's a note in the article
+          if (data.note) {
+            // Place the title of the note in the title input
+            // $("#titleinput").val(data.note.title);
+            // Place the body of the note in the body textarea
+            $("#notesbody").text(data.note.body);
+          }
       });
-      $('#noteModal').modal('show');
+      $('#noteModal').modal();
   });//end of .addNote click event
 
   //click event to create a note
