@@ -25,6 +25,8 @@
     {{/each}}
 </div>
 
+{{!-- <div id="notes"></div> --}}
+
  {{!-- modal for displaying and creating notes --}}
   <div id="noteModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md">
@@ -33,15 +35,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title text-center">Add a note</h4>
         </div>
-        <div class="modal-body">
-          <input type="text" id="noteTitleEntry" class="noteInput" placeholder="Enter Title">
-          <input type="text" id="noteBodyEntry" class="noteInput" placeholder="Enter Body">
-          <div id="noteArea"></div>
-        </div>
-        <div class="modal-footer">
-          <h5 class="instructions">Click the note to read it, or X to delete</h5>
-          <button type="button" id="submitNote">Save Note</button>
-        </div>
+        <div id="notes" class="modal-body"></div>
       </div>
     </div>
   </div>
