@@ -60,3 +60,24 @@ body {
   width: 80%;
   margin: 0 auto;
 }
+
+.form {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	align-content: flex-start;
+}
+
+#titleinput {
+  margin-top: 1%;
+}
+
+#bodyinput {
+  margin-top: .5%;
+}
+
+#savenote {
+  margin-left: 45%;
+}
