@@ -1,4 +1,4 @@
-# Science News :microscope:
+# Science News ⚛️
 ### App design to scrape articles and save them in Mongo database
 
 ## App scrapes articles from [NYTimes Science](https://www.nytimes.com/section/science "NYTimes Science") and displays them using HandlebarsJS. We use MongoDB to save the information and to make them available to be used.
