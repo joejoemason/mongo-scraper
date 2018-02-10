@@ -27,6 +27,7 @@ app.use(express.static(process.cwd() + "/public"));
 var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
 //Handlebars each_upto helper
 hbs.registerHelper('each_upto', function(ary, max, options) {
   if(!ary || ary.length == 0)
@@ -145,14 +146,6 @@ app.get('/getNotes/:id', function (req,res){
     });
 });
 
-// //get route to return a single note to view it
-// app.get('/getSingleNote/:id', function (req,res) {
-//   db.Note
-//   .findOne({_id: req.params.id})
-//   .then( result => res.json(result))
-//   .catch(err => res.json(err));
-// });
-
 //post route to create a new note in the database
 app.post('/createNote/:id', function (req,res){
   db.Note
@@ -164,19 +157,6 @@ app.post('/createNote/:id', function (req,res){
       res.json(dbArticle);
     })
     .catch(function(err) {
-      res.json(err);
-    });
-});
-
-//post route to delete a note
-app.post('/deleteNote', (req,res)=>{
-  let {articleId, noteId} = req.body
-  db.Note
-    .remove({_id: noteId})
-    .then(function(dbNote){
-      res.json(result);
-    })
-    .catch(function(err){
       res.json(err);
     });
 });
