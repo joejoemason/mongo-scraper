@@ -7,3 +7,4 @@
 
 #### Here is a demo of the app:
 
+![alt text](./img/giphy.gif "Logo Title Text 1")
