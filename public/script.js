@@ -63,6 +63,7 @@ $(document).on('click', '.addNote', function (e){
           // The title of the article
           $("#notes").append("<h2>" + data.title + "</h2>");
           // Add area to display the notes
+          $("#notes").append("<h3 id='notestitle'></h3>");
           $("#notes").append("<p id='notesbody'></p>");
           // An input to enter a new title
           $("#notes").append("<input id='titleinput' name='title'>");
@@ -76,6 +77,7 @@ $(document).on('click', '.addNote', function (e){
             // Place the title of the note in the title input
             // $("#titleinput").val(data.note.title);
             // Place the body of the note in the body textarea
+            $("#notestitle").text(data.note.title);
             $("#notesbody").text(data.note.body);
           }
       });
